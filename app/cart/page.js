@@ -93,32 +93,43 @@ export default function CartPage() {
       cartProducts.filter((id) => id === products[i]._id).length;
   }
 
-  if (typeof window !== "undefined") {
-    if (window.location.href.includes("success")) {
-      useEffect(() => {
-        setTimeout(() => {
-          clearCart();
-        }, 3000);
-      }, []);
-
-      return (
-        <>
-          <Header />
-          <Center>
-            <ColumnsWrapper>
-              <Box>
-                <h1>Thanks for your order!</h1>
-                <p>We will send you an email with your order details</p>
-              </Box>
-            </ColumnsWrapper>
-          </Center>
-        </>
-      );
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.location.href.includes("success")
+    ) {
+      setTimeout(() => {
+        clearCart();
+      }, 3000);
     }
+  }, []);
 
-    if (window.location.href.includes("canceled")) {
-      alert("Payment canceled");
-    }
+  if (
+    typeof window !== "undefined" &&
+    window.location.href.includes("success")
+  ) {
+    setTimeout(() => {
+      clearCart();
+    }, 3000);
+
+    return (
+      <>
+        <Header />
+        <Center>
+          <ColumnsWrapper>
+            <Box>
+              <h1>Thanks for your order!</h1>
+              <p>We will send you an email with your order details</p>
+            </Box>
+          </ColumnsWrapper>
+        </Center>
+      </>
+    );
+  } else if (
+    typeof window !== "undefined" &&
+    window.location.href.includes("canceled")
+  ) {
+    alert("Payment canceled");
   }
 
   return (
